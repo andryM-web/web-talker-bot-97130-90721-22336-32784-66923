@@ -1,9 +1,10 @@
-import { Film, Search, User, LogOut, UserCircle, Heart } from 'lucide-react';
+import { Film, Search, User, LogOut, UserCircle, Heart, Shield } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import ThemeToggle from './ThemeToggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +20,7 @@ interface HeaderProps {
 
 const Header = ({ onSearch }: HeaderProps) => {
   const navigate = useNavigate();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +71,8 @@ const Header = ({ onSearch }: HeaderProps) => {
             <Button variant="ghost">Расписание</Button>
           </Link>
           
+          <ThemeToggle />
+          
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -95,6 +98,15 @@ const Header = ({ onSearch }: HeaderProps) => {
                   <Heart className="mr-2 h-4 w-4" />
                   Рекомендации
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate('/admin')}>
+                      <Shield className="mr-2 h-4 w-4" />
+                      Панель администратора
+                    </DropdownMenuItem>
+                  </>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />

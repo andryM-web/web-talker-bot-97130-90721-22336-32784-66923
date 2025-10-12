@@ -1,73 +1,62 @@
-# Welcome to your Lovable project
+# Kinoclone - Приложение для отслеживания фильмов
+
+Современное веб-приложение для просмотра каталога фильмов, отслеживания просмотренных фильмов и поиска расписания кинотеатров Краснодара.
+
+## 🚀 Возможности
+
+- 📺 Каталог фильмов с фильтрацией и сортировкой
+- 🎬 Детальная информация о фильмах
+- 🎭 Расписание кинотеатров
+- 👤 Личный профиль пользователя
+- ⭐ Отслеживание статуса просмотра фильмов
+- 🎯 Персональные рекомендации
+- 🛡️ Панель администратора для управления контентом
+- 🌓 Светлая и темная темы
+- ✨ Современные анимации
+
+## 🛠️ Технологии
+
+- React 18, TypeScript, Vite
+- Tailwind CSS, shadcn/ui
+- React Router v6, Framer Motion
+- React Hook Form + Zod
+
+## 📦 Установка и запуск
+
+```bash
+npm install
+npm run dev
+```
+
+Приложение будет доступно по адресу: `http://localhost:5173`
+
+## 🔑 Тестовые учетные данные
+
+**Администратор:**
+- Email: `admin@kinoclone.ru`
+- Пароль: `admin123`
+
+**Обычный пользователь:**
+- Любой email и пароль (минимум 6 символов)
+
+## 🎨 Особенности
+
+- Адаптивный дизайн для всех устройств
+- Современные плавные анимации
+- Поддержка светлой и темной темы
+- Панель администратора с CRUD операциями
+
+## 📁 Структура проекта
+
+```
+src/
+├── components/     # React компоненты
+├── contexts/       # Context провайдеры (Auth, Theme)
+├── pages/          # Страницы (Home, Auth, AdminPanel, etc.)
+├── lib/            # Утилиты и валидации
+└── services/       # API клиент
+```
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/f107e8bf-9c6f-48ce-a4f3-adb390391b04
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/f107e8bf-9c6f-48ce-a4f3-adb390391b04) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/f107e8bf-9c6f-48ce-a4f3-adb390391b04) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)

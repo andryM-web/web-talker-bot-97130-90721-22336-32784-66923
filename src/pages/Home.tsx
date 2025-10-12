@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import Header from '@/components/Header';
 import MovieGrid from '@/components/MovieGrid';
 import GenreFilter from '@/components/GenreFilter';
+import Footer from '@/components/Footer';
 import { movies, genres } from '@/data/mockMovies';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -62,7 +63,7 @@ const Home = () => {
 
       <main className="container px-4 py-8 space-y-12">
         {/* Hero секция с популярными фильмами */}
-        <section>
+        <section className="animate-fade-in">
           <div className="relative rounded-2xl overflow-hidden mb-8" style={{ background: 'var(--gradient-hero)' }}>
             <div className="p-8 md:p-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
@@ -78,12 +79,12 @@ const Home = () => {
         </section>
 
         {/* Новинки */}
-        <section>
+        <section className="animate-fade-in">
           <MovieGrid movies={newMovies} title="✨ Новинки" />
         </section>
 
         {/* Фильтры и каталог */}
-        <section>
+        <section className="animate-fade-in">
           <div className="mb-6">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Каталог фильмов</h2>
             
@@ -108,6 +109,7 @@ const Home = () => {
           <MovieGrid movies={filteredMovies} />
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

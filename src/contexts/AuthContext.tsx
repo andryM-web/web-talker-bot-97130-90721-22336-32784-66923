@@ -5,6 +5,7 @@ import { mockUserMovies } from '@/data/mockMovies';
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   userMovies: UserMovie[];
   login: (email: string, password: string) => Promise<void>;
   register: (username: string, email: string, password: string) => Promise<void>;
@@ -34,10 +35,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Mock login - в реальном приложении здесь будет API запрос
     await new Promise(resolve => setTimeout(resolve, 500));
     
+    // Проверка на администратора
+    if (email === 'admin@kinoclone.ru' && password === 'admin123') {
+      const adminUser: User = {
+        id: 999,
+        username: 'Admin',
+        email: 'admin@kinoclone.ru',
+        role: 'admin',
+      };
+      setUser(adminUser);
+      setUserMovies([]);
+      localStorage.setItem('user', JSON.stringify(adminUser));
+      localStorage.setItem('userMovies', JSON.stringify([]));
+      return;
+    }
+    
+    // Обычный пользователь
     const mockUser: User = {
       id: 1,
       username: email.split('@')[0],
       email,
+      role: 'user',
     };
     
     setUser(mockUser);
@@ -51,9 +69,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await new Promise(resolve => setTimeout(resolve, 500));
     
     const mockUser: User = {
-      id: 1,
+      id: Date.now(), // Уникальный ID
       username,
       email,
+      role: 'user',
     };
     
     setUser(mockUser);
@@ -112,6 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         user,
         isAuthenticated: !!user,
+        isAdmin: user?.role === 'admin',
         userMovies,
         login,
         register,
