@@ -10,36 +10,43 @@ import { Sparkles, TrendingUp, Clock } from 'lucide-react';
 const Recommendations = () => {
   const { userMovies, isAuthenticated } = useAuth();
 
-  // Похожие фильмы на основе высоко оцененных
+  // Похожие фильмы на основе высоко оцененных (8-10 баллов)
   const similarMovies = useMemo(() => {
     if (!isAuthenticated || userMovies.length === 0) return [];
 
-    // Получаем фильмы с высокими оценками (4-5)
+    // Получаем фильмы с высокими оценками (8-10)
     const highRatedMovies = userMovies
-      .filter(um => um.rating && um.rating >= 4)
+      .filter(um => um.rating && um.rating >= 8)
       .map(um => movies.find(m => m.id === um.movieId))
       .filter(Boolean);
 
     if (highRatedMovies.length === 0) return [];
 
-    // Собираем все жанры из высоко оцененных фильмов
+    // Собираем все жанры и режиссёров из высоко оцененных фильмов
     const favoriteGenreIds = new Set(
       highRatedMovies.flatMap(m => m!.genres.map(g => g.id))
     );
+    
+    const favoriteDirectors = new Set(
+      highRatedMovies.map(m => m!.director)
+    );
 
-    // Ищем фильмы с похожими жанрами, которые пользователь еще не смотрел
+    // Ищем фильмы с похожими жанрами/режиссёрами, которые пользователь еще не смотрел
     const watchedMovieIds = new Set(userMovies.map(um => um.movieId));
 
     return movies
       .filter(movie => 
         !watchedMovieIds.has(movie.id) &&
-        movie.genres.some(g => favoriteGenreIds.has(g.id))
+        (movie.genres.some(g => favoriteGenreIds.has(g.id)) || favoriteDirectors.has(movie.director))
       )
       .sort((a, b) => {
-        // Сортируем по количеству совпадающих жанров
-        const aMatches = a.genres.filter(g => favoriteGenreIds.has(g.id)).length;
-        const bMatches = b.genres.filter(g => favoriteGenreIds.has(g.id)).length;
-        return bMatches - aMatches;
+        // Сортируем по количеству совпадений (жанры + режиссёр)
+        const aGenreMatches = a.genres.filter(g => favoriteGenreIds.has(g.id)).length;
+        const bGenreMatches = b.genres.filter(g => favoriteGenreIds.has(g.id)).length;
+        const aDirectorMatch = favoriteDirectors.has(a.director) ? 2 : 0;
+        const bDirectorMatch = favoriteDirectors.has(b.director) ? 2 : 0;
+        
+        return (bGenreMatches + bDirectorMatch) - (aGenreMatches + aDirectorMatch);
       })
       .slice(0, 8);
   }, [userMovies, isAuthenticated]);
@@ -86,7 +93,7 @@ const Recommendations = () => {
               <CardContent className="py-12 text-center">
                 <Sparkles className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-muted-foreground">
-                  Оцените несколько фильмов на 4-5 звезд, чтобы получить персональные рекомендации
+                  Оцените несколько фильмов на 8-10 баллов, чтобы получить персональные рекомендации
                 </p>
               </CardContent>
             </Card>

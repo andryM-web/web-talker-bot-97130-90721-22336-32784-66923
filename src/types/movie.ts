@@ -23,6 +23,8 @@ export interface UserMovie {
   movieId: number;
   status: MovieStatus;
   rating?: number;
+  comment?: string;
+  dateAdded?: string;
 }
 
 export interface MovieFilters {

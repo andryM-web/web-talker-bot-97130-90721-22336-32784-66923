@@ -10,7 +10,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (username: string, email: string, password: string) => Promise<void>;
   logout: () => void;
-  updateUserMovie: (movieId: number, status: MovieStatus, rating?: number) => void;
+  updateUserMovie: (movieId: number, status: MovieStatus, rating?: number, comment?: string) => void;
   getUserMovieStatus: (movieId: number) => UserMovie | undefined;
 }
 
@@ -88,7 +88,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('userMovies');
   };
 
-  const updateUserMovie = (movieId: number, status: MovieStatus, rating?: number) => {
+  const updateUserMovie = (movieId: number, status: MovieStatus, rating?: number, comment?: string) => {
     if (!user) return;
 
     const existingIndex = userMovies.findIndex(
@@ -100,10 +100,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (existingIndex >= 0) {
       newUserMovies = [...userMovies];
       newUserMovies[existingIndex] = {
+        ...newUserMovies[existingIndex],
         userId: user.id,
         movieId,
         status,
         rating,
+        comment,
       };
     } else {
       newUserMovies = [
@@ -113,6 +115,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           movieId,
           status,
           rating,
+          comment,
+          dateAdded: new Date().toISOString(),
         },
       ];
     }
