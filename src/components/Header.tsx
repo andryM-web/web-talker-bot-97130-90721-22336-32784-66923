@@ -1,10 +1,10 @@
-import { Film, Search, User, LogOut, UserCircle, Heart, Shield } from 'lucide-react';
+import { Film, User, LogOut, UserCircle, Heart, Shield } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
+import AccessibilityToggle from './AccessibilityToggle';
+import SearchAutocomplete from './SearchAutocomplete';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,13 +21,6 @@ interface HeaderProps {
 const Header = ({ onSearch }: HeaderProps) => {
   const navigate = useNavigate();
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    onSearch?.(query);
-  };
 
   const handleLogout = () => {
     logout();
@@ -45,16 +38,7 @@ const Header = ({ onSearch }: HeaderProps) => {
         </Link>
 
         <div className="flex-1 max-w-md mx-8">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Поиск фильмов..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-          </div>
+          <SearchAutocomplete onSearch={onSearch} />
         </div>
 
         <nav className="flex items-center gap-2">
@@ -71,6 +55,7 @@ const Header = ({ onSearch }: HeaderProps) => {
             <Button variant="ghost">Расписание</Button>
           </Link>
           
+          <AccessibilityToggle />
           <ThemeToggle />
           
           {isAuthenticated ? (

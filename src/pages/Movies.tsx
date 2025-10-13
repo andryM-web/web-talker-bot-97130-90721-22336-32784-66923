@@ -17,7 +17,7 @@ const Movies = () => {
   const [sortBy, setSortBy] = useState<'rating' | 'year' | 'title'>('rating');
   const [yearFrom, setYearFrom] = useState('');
   const [yearTo, setYearTo] = useState('');
-  const [ratingFrom, setRatingFrom] = useState('');
+  const [ratingFrom, setRatingFrom] = useState('0');
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredMovies = useMemo(() => {
@@ -48,7 +48,7 @@ const Movies = () => {
     }
 
     // Фильтр по рейтингу
-    if (ratingFrom) {
+    if (ratingFrom && ratingFrom !== '0') {
       filtered = filtered.filter(movie => movie.rating >= parseFloat(ratingFrom));
     }
 
@@ -75,7 +75,7 @@ const Movies = () => {
     setSortBy('rating');
     setYearFrom('');
     setYearTo('');
-    setRatingFrom('');
+    setRatingFrom('0');
   };
 
   return (
@@ -138,7 +138,7 @@ const Movies = () => {
                         <SelectValue placeholder="Любой" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Любой</SelectItem>
+                        <SelectItem value="0">Любой</SelectItem>
                         <SelectItem value="9.0">9.0+</SelectItem>
                         <SelectItem value="8.5">8.5+</SelectItem>
                         <SelectItem value="8.0">8.0+</SelectItem>
