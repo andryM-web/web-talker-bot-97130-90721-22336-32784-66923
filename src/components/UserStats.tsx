@@ -125,7 +125,7 @@ const UserStats = ({ userMovies }: UserStatsProps) => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-500">
-              ⭐ {averageRating} / 5
+              ⭐ {averageRating} / 10
             </div>
           </CardContent>
         </Card>

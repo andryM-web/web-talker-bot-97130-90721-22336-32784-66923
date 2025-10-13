@@ -7,16 +7,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Clock, Calendar, MapPin, Star, User, Check, Plus, X, Eye, ArrowLeft } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { MovieStatus } from '@/types/movie';
+import StarRating from '@/components/StarRating';
 
 const MovieDetail = () => {
   const { id } = useParams();
   const { isAuthenticated, updateUserMovie, getUserMovieStatus } = useAuth();
   const { toast } = useToast();
-  const [selectedRating, setSelectedRating] = useState(0);
 
   const movie = movies.find(m => m.id === parseInt(id || ''));
   const userMovieStatus = movie ? getUserMovieStatus(movie.id) : undefined;
@@ -54,10 +54,9 @@ const MovieDetail = () => {
 
     const status = userMovieStatus?.status || 'completed';
     updateUserMovie(movie.id, status, rating);
-    setSelectedRating(rating);
     toast({
       title: 'Оценка сохранена',
-      description: `Вы поставили ${rating} звезд`,
+      description: `Вы поставили ${rating}/10`,
     });
   };
 
@@ -189,25 +188,14 @@ const MovieDetail = () => {
 
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                {userMovieStatus?.rating ? `Ваша оценка: ${userMovieStatus.rating}/5` : 'Поставьте оценку:'}
+                {userMovieStatus?.rating ? `Ваша оценка: ${userMovieStatus.rating}/10` : 'Поставьте оценку:'}
               </p>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((rating) => (
-                  <button
-                    key={rating}
-                    onClick={() => handleRatingChange(rating)}
-                    className="transition-transform hover:scale-110"
-                  >
-                    <Star
-                      className={`h-6 w-6 ${
-                        rating <= (userMovieStatus?.rating || selectedRating)
-                          ? 'fill-yellow-500 text-yellow-500'
-                          : 'text-muted-foreground'
-                      }`}
-                    />
-                  </button>
-                ))}
-              </div>
+              <StarRating
+                rating={userMovieStatus?.rating || 0}
+                onRatingChange={handleRatingChange}
+                size="md"
+                showLabel={!!userMovieStatus?.rating}
+              />
             </div>
 
             {movieScreenings.length > 0 && (

@@ -219,12 +219,13 @@ const generateScreenings = (): Screening[] => {
 export const screenings: Screening[] = generateScreenings();
 
 // Mock данные для фильмов пользователя (будет использоваться в AuthContext)
+// Рейтинги мигрированы на 10-балльную шкалу
 export const mockUserMovies: UserMovie[] = [
-  { userId: 1, movieId: 1, status: 'completed', rating: 5 },
-  { userId: 1, movieId: 3, status: 'completed', rating: 5 },
-  { userId: 1, movieId: 4, status: 'completed', rating: 5 },
-  { userId: 1, movieId: 6, status: 'watching', rating: 4 },
+  { userId: 1, movieId: 1, status: 'completed', rating: 10 },
+  { userId: 1, movieId: 3, status: 'completed', rating: 10 },
+  { userId: 1, movieId: 4, status: 'completed', rating: 9 },
+  { userId: 1, movieId: 6, status: 'watching', rating: 8 },
   { userId: 1, movieId: 8, status: 'planned' },
   { userId: 1, movieId: 10, status: 'planned' },
-  { userId: 1, movieId: 9, status: 'dropped', rating: 2 },
+  { userId: 1, movieId: 9, status: 'dropped', rating: 4 },
 ];

@@ -1,10 +1,10 @@
-import { Star, Trash2 } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
-import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Movie, MovieStatus, UserMovie } from '@/types/movie';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import StarRating from './StarRating';
 import {
   Select,
   SelectContent,
@@ -39,8 +39,8 @@ const UserMovieCard = ({ movie, userMovie }: UserMovieCardProps) => {
     updateUserMovie(movie.id, newStatus as MovieStatus, userMovie.rating);
   };
 
-  const handleRatingChange = (newRating: string) => {
-    updateUserMovie(movie.id, userMovie.status, parseInt(newRating));
+  const handleRatingChange = (newRating: number) => {
+    updateUserMovie(movie.id, userMovie.status, newRating);
   };
 
   return (
@@ -78,7 +78,7 @@ const UserMovieCard = ({ movie, userMovie }: UserMovieCardProps) => {
               <span className="font-semibold">{movie.rating}</span>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="space-y-3">
               <Select value={userMovie.status} onValueChange={handleStatusChange}>
                 <SelectTrigger className="w-[150px]">
                   <SelectValue />
@@ -92,21 +92,14 @@ const UserMovieCard = ({ movie, userMovie }: UserMovieCardProps) => {
               </Select>
 
               {(userMovie.status === 'completed' || userMovie.status === 'dropped') && (
-                <Select 
-                  value={userMovie.rating?.toString() || ''} 
-                  onValueChange={handleRatingChange}
-                >
-                  <SelectTrigger className="w-[120px]">
-                    <SelectValue placeholder="Оценка" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="5">⭐⭐⭐⭐⭐</SelectItem>
-                    <SelectItem value="4">⭐⭐⭐⭐</SelectItem>
-                    <SelectItem value="3">⭐⭐⭐</SelectItem>
-                    <SelectItem value="2">⭐⭐</SelectItem>
-                    <SelectItem value="1">⭐</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">Ваша оценка:</p>
+                  <StarRating
+                    rating={userMovie.rating || 0}
+                    onRatingChange={handleRatingChange}
+                    size="sm"
+                  />
+                </div>
               )}
             </div>
           </div>
