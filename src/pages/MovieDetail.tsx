@@ -210,17 +210,12 @@ const MovieDetail = () => {
                 <CardContent className="p-6 space-y-3">
                   <h3 className="font-semibold text-lg">Где идет в Краснодаре?</h3>
                   {movieScreenings.map(s => (
-                    <div key={s.id} className="flex justify-between items-center p-3 rounded-md bg-secondary/50">
-                      <div>
-                        <p className="font-medium">{s.cinema?.name}</p>
-                        <p className="text-sm text-muted-foreground">{s.cinema?.address}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-semibold text-primary">
-                          {new Date(s.datetime).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
-                        </p>
-                        <p className="text-sm text-muted-foreground">{s.price} ₽</p>
-                      </div>
+                    <div key={s.id} className="flex flex-col gap-2 p-3 rounded-md bg-secondary/50">
+                      <p className="font-medium">{s.cinema?.name}</p>
+                      <p className="text-sm text-muted-foreground">{s.cinema?.address}</p>
+                      <p className="font-semibold text-primary">
+                        {new Date(s.datetime).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
                   ))}
                 </CardContent>

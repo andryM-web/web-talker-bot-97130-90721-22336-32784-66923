@@ -1,6 +1,5 @@
-import { Clock, MapPin, Ticket } from 'lucide-react';
+import { Clock, MapPin } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
-import { Button } from './ui/button';
 import { Screening, Movie, Cinema } from '@/types/movie';
 import { Link } from 'react-router-dom';
 
@@ -46,16 +45,7 @@ const ScreeningCard = ({ screening, movie, cinema }: ScreeningCardProps) => {
                 <Clock className="h-4 w-4" />
                 <span>{timeString}</span>
               </div>
-              
-              <div className="flex items-center gap-2">
-                <Ticket className="h-4 w-4" />
-                <span className="font-semibold text-foreground">{screening.price} ₽</span>
-              </div>
             </div>
-            
-            <Button size="sm" className="mt-2">
-              Купить билет
-            </Button>
           </div>
         </div>
       </CardContent>
