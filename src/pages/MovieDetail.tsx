@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { MovieStatus } from '@/types/movie';
 import StarRating from '@/components/StarRating';
+import { getGenreIcon } from '@/lib/genreIcons';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -121,9 +122,15 @@ const MovieDetail = () => {
             <div>
               <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
               <div className="flex flex-wrap gap-2 mb-4">
-                {movie.genres.map(genre => (
-                  <Badge key={genre.id} variant="secondary">{genre.name}</Badge>
-                ))}
+                {movie.genres.map(genre => {
+                  const Icon = getGenreIcon(genre.name);
+                  return (
+                    <Badge key={genre.id} variant="secondary" className="flex items-center gap-1.5">
+                      <Icon className="h-3 w-3" />
+                      {genre.name}
+                    </Badge>
+                  );
+                })}
               </div>
             </div>
 

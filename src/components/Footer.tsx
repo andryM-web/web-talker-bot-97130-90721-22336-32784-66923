@@ -88,13 +88,13 @@ const Footer = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-                  aria-label="Frontend разработчик - Андрей М."
+                  aria-label="Frontend разработчик - Андрей Муратов"
                 >
                   <Code className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="font-medium">Frontend</div>
-                    <div className="text-xs opacity-80">Андрей М.</div>
-                  </div>
+              <div>
+                <div className="font-medium">Frontend</div>
+                <div className="text-xs opacity-80">Андрей Муратов</div>
+              </div>
                 </a>
               </li>
               <li>
@@ -103,13 +103,13 @@ const Footer = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-                  aria-label="Backend разработчик - Горе Поэт"
+                  aria-label="Backend разработчик - Евгения Кулакова"
                 >
                   <Server className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="font-medium">Backend</div>
-                    <div className="text-xs opacity-80">Горе Поэт</div>
-                  </div>
+              <div>
+                <div className="font-medium">Backend</div>
+                <div className="text-xs opacity-80">Евгения Кулакова</div>
+              </div>
                 </a>
               </li>
               <li>
@@ -118,13 +118,13 @@ const Footer = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-                  aria-label="Database разработчик - Кормилицына"
+                  aria-label="Database разработчик - Дарья Кормилицына"
                 >
                   <Database className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="font-medium">Database</div>
-                    <div className="text-xs opacity-80">Кормилицына</div>
-                  </div>
+              <div>
+                <div className="font-medium">Database</div>
+                <div className="text-xs opacity-80">Дарья Кормилицына</div>
+              </div>
                 </a>
               </li>
             </ul>

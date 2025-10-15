@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import StarRating from './StarRating';
 import { useState } from 'react';
+import { getGenreIcon } from '@/lib/genreIcons';
 import {
   Select,
   SelectContent,
@@ -77,11 +78,15 @@ const UserMovieCard = ({ movie, userMovie }: UserMovieCardProps) => {
             </div>
 
             <div className="flex flex-wrap gap-1">
-              {movie.genres.map(genre => (
-                <Badge key={genre.id} variant="secondary" className="text-xs">
-                  {genre.name}
-                </Badge>
-              ))}
+              {movie.genres.map(genre => {
+                const Icon = getGenreIcon(genre.name);
+                return (
+                  <Badge key={genre.id} variant="secondary" className="text-xs flex items-center gap-1">
+                    <Icon className="h-2.5 w-2.5" />
+                    {genre.name}
+                  </Badge>
+                );
+              })}
             </div>
 
             <div className="flex items-center gap-2">

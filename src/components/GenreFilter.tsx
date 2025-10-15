@@ -1,5 +1,6 @@
 import { Genre } from '@/types/movie';
 import { Badge } from './ui/badge';
+import { getGenreIcon } from '@/lib/genreIcons';
 
 interface GenreFilterProps {
   genres: Genre[];
@@ -13,13 +14,16 @@ const GenreFilter = ({ genres, selectedGenres, onGenreToggle, onClear }: GenreFi
     <div className="flex flex-wrap gap-2">
       {genres.map((genre) => {
         const isSelected = selectedGenres.includes(genre.id);
+        const Icon = getGenreIcon(genre.name);
+        
         return (
           <Badge
             key={genre.id}
             variant={isSelected ? "default" : "outline"}
-            className="cursor-pointer transition-all hover:scale-105"
+            className="cursor-pointer transition-all hover:scale-105 flex items-center gap-1.5"
             onClick={() => onGenreToggle(genre.id)}
           >
+            <Icon className="h-3 w-3" />
             {genre.name}
           </Badge>
         );
