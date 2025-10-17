@@ -1,12 +1,10 @@
-import { Star, MessageSquare } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { Textarea } from './ui/textarea';
 import { Movie, MovieStatus, UserMovie } from '@/types/movie';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import StarRating from './StarRating';
-import { useState } from 'react';
 import { getGenreIcon } from '@/lib/genreIcons';
 import {
   Select,
@@ -37,22 +35,13 @@ const statusColors: Record<MovieStatus, string> = {
 
 const UserMovieCard = ({ movie, userMovie }: UserMovieCardProps) => {
   const { updateUserMovie } = useAuth();
-  const [comment, setComment] = useState(userMovie.comment || '');
 
   const handleStatusChange = (newStatus: string) => {
-    updateUserMovie(movie.id, newStatus as MovieStatus, userMovie.rating, comment);
+    updateUserMovie(movie.id, newStatus as MovieStatus, userMovie.rating);
   };
 
   const handleRatingChange = (newRating: number) => {
-    updateUserMovie(movie.id, userMovie.status, newRating, comment);
-  };
-
-  const handleCommentChange = (newComment: string) => {
-    setComment(newComment);
-  };
-
-  const handleCommentBlur = () => {
-    updateUserMovie(movie.id, userMovie.status, userMovie.rating, comment);
+    updateUserMovie(movie.id, userMovie.status, newRating);
   };
 
   return (
@@ -117,20 +106,6 @@ const UserMovieCard = ({ movie, userMovie }: UserMovieCardProps) => {
                   />
                 </div>
               )}
-
-              <div className="space-y-1">
-                <label className="text-xs text-muted-foreground flex items-center gap-1">
-                  <MessageSquare className="h-3 w-3" />
-                  Комментарий:
-                </label>
-                <Textarea
-                  placeholder="Ваши мысли о фильме..."
-                  value={comment}
-                  onChange={(e) => handleCommentChange(e.target.value)}
-                  onBlur={handleCommentBlur}
-                  className="min-h-[60px] resize-none text-sm"
-                />
-              </div>
             </div>
           </div>
         </div>

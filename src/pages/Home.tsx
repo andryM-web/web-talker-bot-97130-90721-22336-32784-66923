@@ -5,6 +5,9 @@ import GenreFilter from '@/components/GenreFilter';
 import Footer from '@/components/Footer';
 import { movies, genres } from '@/data/mockMovies';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useAuth } from '@/contexts/AuthContext';
+import { Sparkles } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -57,6 +60,44 @@ const Home = () => {
     []
   );
 
+  const { userMovies, isAuthenticated } = useAuth();
+
+  const recommendedMovies = useMemo(() => {
+    if (!isAuthenticated || userMovies.length === 0) return [];
+
+    const highRatedMovies = userMovies
+      .filter(um => um.rating && um.rating >= 8)
+      .map(um => movies.find(m => m.id === um.movieId))
+      .filter(Boolean);
+
+    if (highRatedMovies.length === 0) return [];
+
+    const favoriteGenreIds = new Set(
+      highRatedMovies.flatMap(m => m!.genres.map(g => g.id))
+    );
+    
+    const favoriteDirectors = new Set(
+      highRatedMovies.map(m => m!.director)
+    );
+
+    const watchedMovieIds = new Set(userMovies.map(um => um.movieId));
+
+    return movies
+      .filter(movie => 
+        !watchedMovieIds.has(movie.id) &&
+        (movie.genres.some(g => favoriteGenreIds.has(g.id)) || favoriteDirectors.has(movie.director))
+      )
+      .sort((a, b) => {
+        const aGenreMatches = a.genres.filter(g => favoriteGenreIds.has(g.id)).length;
+        const bGenreMatches = b.genres.filter(g => favoriteGenreIds.has(g.id)).length;
+        const aDirectorMatch = favoriteDirectors.has(a.director) ? 2 : 0;
+        const bDirectorMatch = favoriteDirectors.has(b.director) ? 2 : 0;
+        
+        return (bGenreMatches + bDirectorMatch) - (aGenreMatches + aDirectorMatch);
+      })
+      .slice(0, 5);
+  }, [userMovies, isAuthenticated]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header onSearch={setSearchQuery} />
@@ -77,6 +118,30 @@ const Home = () => {
 
           <MovieGrid movies={popularMovies} title="🔥 Популярные фильмы" />
         </section>
+
+        {/* Персонализированные рекомендации */}
+        {isAuthenticated && recommendedMovies.length > 0 && (
+          <section className="animate-fade-in">
+            <div className="flex items-center gap-2 mb-6">
+              <Sparkles className="h-6 w-6 text-primary" />
+              <h2 className="text-2xl font-bold">На основе ваших интересов</h2>
+            </div>
+            <MovieGrid movies={recommendedMovies} />
+          </section>
+        )}
+
+        {isAuthenticated && recommendedMovies.length === 0 && userMovies.length > 0 && (
+          <section className="animate-fade-in">
+            <Card>
+              <CardContent className="py-8 text-center">
+                <Sparkles className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
+                <p className="text-muted-foreground">
+                  Оцените несколько фильмов на 8-10 баллов, чтобы увидеть персональные рекомендации
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+        )}
 
         {/* Новинки */}
         <section className="animate-fade-in">

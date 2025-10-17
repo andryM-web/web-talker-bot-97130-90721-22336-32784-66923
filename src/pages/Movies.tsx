@@ -19,9 +19,18 @@ const Movies = () => {
   const [yearTo, setYearTo] = useState('');
   const [ratingFrom, setRatingFrom] = useState('0');
   const [showFilters, setShowFilters] = useState(false);
+  const [quickFilter, setQuickFilter] = useState<'all' | 'popular' | 'new'>('all');
 
   const filteredMovies = useMemo(() => {
     let filtered = [...movies];
+
+    // Быстрые фильтры
+    if (quickFilter === 'popular') {
+      filtered = filtered.filter(movie => movie.rating >= 8.0);
+    } else if (quickFilter === 'new') {
+      const currentYear = new Date().getFullYear();
+      filtered = filtered.filter(movie => movie.year >= 2023 && movie.year <= currentYear);
+    }
 
     // Поиск по названию
     if (searchQuery) {
@@ -67,7 +76,7 @@ const Movies = () => {
     });
 
     return filtered;
-  }, [movies, searchQuery, selectedGenres, sortBy, yearFrom, yearTo, ratingFrom]);
+  }, [movies, searchQuery, selectedGenres, sortBy, yearFrom, yearTo, ratingFrom, quickFilter]);
 
   const resetFilters = () => {
     setSearchQuery('');
@@ -76,6 +85,7 @@ const Movies = () => {
     setYearFrom('');
     setYearTo('');
     setRatingFrom('0');
+    setQuickFilter('all');
   };
 
   return (
@@ -97,6 +107,27 @@ const Movies = () => {
             >
               <SlidersHorizontal className="h-4 w-4 mr-2" />
               Фильтры
+            </Button>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant={quickFilter === 'all' ? 'default' : 'outline'}
+              onClick={() => setQuickFilter('all')}
+            >
+              Все фильмы
+            </Button>
+            <Button
+              variant={quickFilter === 'popular' ? 'default' : 'outline'}
+              onClick={() => setQuickFilter('popular')}
+            >
+              🔥 Популярные
+            </Button>
+            <Button
+              variant={quickFilter === 'new' ? 'default' : 'outline'}
+              onClick={() => setQuickFilter('new')}
+            >
+              ✨ Новинки (2023-2025)
             </Button>
           </div>
 
