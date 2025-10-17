@@ -51,12 +51,12 @@ const Home = () => {
   }, [searchQuery, selectedGenres, sortBy]);
 
   const popularMovies = useMemo(
-    () => movies.sort((a, b) => b.rating - a.rating).slice(0, 5),
+    () => [...movies].sort((a, b) => b.rating - a.rating).slice(0, 5),
     []
   );
 
   const newMovies = useMemo(
-    () => movies.sort((a, b) => b.year - a.year).slice(0, 5),
+    () => [...movies].sort((a, b) => b.year - a.year).slice(0, 5),
     []
   );
 
@@ -82,7 +82,7 @@ const Home = () => {
 
     const watchedMovieIds = new Set(userMovies.map(um => um.movieId));
 
-    return movies
+    return [...movies]
       .filter(movie => 
         !watchedMovieIds.has(movie.id) &&
         (movie.genres.some(g => favoriteGenreIds.has(g.id)) || favoriteDirectors.has(movie.director))
