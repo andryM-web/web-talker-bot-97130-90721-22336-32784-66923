@@ -56,7 +56,10 @@ const Home = () => {
   );
 
   const newMovies = useMemo(
-    () => [...movies].sort((a, b) => b.year - a.year).slice(0, 5),
+    () => [...movies]
+      .filter(movie => movie.year >= 2023)
+      .sort((a, b) => b.year - a.year)
+      .slice(0, 5),
     []
   );
 

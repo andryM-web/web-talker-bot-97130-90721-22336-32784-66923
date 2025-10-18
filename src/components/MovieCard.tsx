@@ -32,10 +32,10 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
             {movie.title}
           </h3>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1 min-h-[40px]">
             <span>{movie.year}</span>
             <span>•</span>
-            <span className="line-clamp-1">{movie.genres.map(g => g.name).join(', ')}</span>
+            <span className="line-clamp-2">{movie.genres.map(g => g.name).join(', ')}</span>
           </div>
         </div>
       </div>
