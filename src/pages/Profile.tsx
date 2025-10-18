@@ -67,7 +67,7 @@ const Profile = () => {
           <UserStats userMovies={userMovies} />
 
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid grid-cols-5 w-full max-w-3xl">
+            <TabsList className="grid grid-cols-2 sm:grid-cols-5 w-full max-w-3xl">
               <TabsTrigger value="all">
                 Все ({counts.all})
               </TabsTrigger>

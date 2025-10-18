@@ -110,7 +110,7 @@ const MovieDetail = () => {
         </Link>
 
         <div className="grid md:grid-cols-[300px_1fr] gap-8 mb-12">
-          <div className="relative rounded-xl overflow-hidden">
+          <div className="relative rounded-xl overflow-hidden max-w-[250px] md:max-w-none mx-auto">
             <img src={movie.poster} alt={movie.title} className="w-full aspect-[2/3] object-cover" />
             <div className="absolute top-4 right-4 flex items-center gap-1 bg-black/70 backdrop-blur-sm px-3 py-2 rounded-lg">
               <Star className="h-5 w-5 fill-yellow-500 text-yellow-500" />
@@ -158,7 +158,7 @@ const MovieDetail = () => {
               <p className="leading-relaxed">{movie.description}</p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 sm:flex gap-3">
               <Button 
                 size="lg" 
                 variant={userMovieStatus?.status === 'completed' ? 'default' : 'outline'}
