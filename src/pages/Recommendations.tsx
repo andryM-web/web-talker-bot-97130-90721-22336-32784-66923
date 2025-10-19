@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { movies } from '@/data/mockMovies';
 import Header from '@/components/Header';
@@ -56,14 +57,14 @@ const Recommendations = () => {
     return [...movies]
       .sort((a, b) => b.year - a.year)
       .slice(0, 8);
-  }, []);
+  }, [movies]);
 
   // Популярные (по рейтингу)
   const popularMovies = useMemo(() => {
     return [...movies]
       .sort((a, b) => b.rating - a.rating)
       .slice(0, 8);
-  }, []);
+  }, [movies]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -106,9 +107,9 @@ const Recommendations = () => {
                 <p className="text-muted-foreground mb-4">
                   Войдите в аккаунт, чтобы получить персональные рекомендации
                 </p>
-                <a href="/auth" className="text-primary hover:underline">
+                <Link to="/auth" className="text-primary hover:underline">
                   Войти или зарегистрироваться
-                </a>
+                </Link>
               </CardContent>
             </Card>
           )}

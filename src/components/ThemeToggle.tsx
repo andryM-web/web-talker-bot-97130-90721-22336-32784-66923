@@ -10,7 +10,12 @@ const ThemeToggle = () => {
   };
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme}>
+    <Button 
+      variant="ghost" 
+      size="icon" 
+      onClick={toggleTheme}
+      aria-label={theme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на тёмную тему'}
+    >
       {theme === 'dark' ? (
         <Sun className="h-5 w-5" />
       ) : (

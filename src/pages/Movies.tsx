@@ -76,7 +76,7 @@ const Movies = () => {
     });
 
     return filtered;
-  }, [movies, searchQuery, selectedGenres, sortBy, yearFrom, yearTo, ratingFrom, quickFilter]);
+  }, [movies, searchQuery, selectedGenres, sortBy, yearFrom, yearTo, ratingFrom, quickFilter]); // movies dependency ready for future DB integration
 
   const resetFilters = () => {
     setSearchQuery('');

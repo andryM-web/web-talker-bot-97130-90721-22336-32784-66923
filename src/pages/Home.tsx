@@ -52,7 +52,7 @@ const Home = () => {
 
   const popularMovies = useMemo(
     () => [...movies].sort((a, b) => b.rating - a.rating).slice(0, 5),
-    []
+    [movies]
   );
 
   const newMovies = useMemo(
@@ -60,7 +60,7 @@ const Home = () => {
       .filter(movie => movie.year >= 2023)
       .sort((a, b) => b.year - a.year)
       .slice(0, 5),
-    []
+    [movies]
   );
 
   const { userMovies, isAuthenticated } = useAuth();
