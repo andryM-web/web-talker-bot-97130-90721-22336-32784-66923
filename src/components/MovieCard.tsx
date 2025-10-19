@@ -10,7 +10,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
   return (
     <Link to={`/movies/${movie.id}`} className="group">
       <div className="relative overflow-hidden rounded-lg transition-transform duration-300 group-hover:scale-105">
-        <div className="aspect-[2/3] relative">
+        <div className="aspect-[2/3] relative overflow-hidden">
           <img
             src={movie.poster}
             alt={movie.title}
@@ -23,7 +23,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             <span className="text-sm font-semibold text-white">{movie.rating}</span>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/90 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform duration-300">
             <p className="text-sm text-white/90 line-clamp-3">{movie.description}</p>
           </div>
         </div>
@@ -32,8 +32,8 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
             {movie.title}
           </h3>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1 min-h-[40px]">
-            <span>{movie.year}</span>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1 min-h-[48px]">
+            <span className="whitespace-nowrap">{movie.year}</span>
             <span>•</span>
             <span className="line-clamp-2">{movie.genres.map(g => g.name).join(', ')}</span>
           </div>
